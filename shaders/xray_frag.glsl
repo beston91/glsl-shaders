@@ -21,8 +21,9 @@ uniform vec3 lightPos; // Light position in camera space
 void main() {
   // Your solution should go here.
   
-  // The model is currently rendered in black
 
+  //this calculate whether the normal is in the same direction of the vertPos vector, if they are, it will result in a number closes to 1, when 1 - that it will
+  //produce a low opacity, which looks hollow
   float opac = dot(normalize(normalInterp), normalize(vertPos));
 
     opac = abs(opac);
@@ -32,5 +33,5 @@ void main() {
 
   gl_FragColor =  vec4(opac * ambientColor,1.0);
 
-  gl_FragColor.a = opac;;
+  gl_FragColor.a = opac;
 }
