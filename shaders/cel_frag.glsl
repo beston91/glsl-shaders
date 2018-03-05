@@ -51,5 +51,3 @@ void main() {
             }
   gl_FragColor = vec4(fragmentColor, 1.0);
 }
-
-//test
