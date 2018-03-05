@@ -32,12 +32,14 @@ void main() {
 
   fragmentColor = Ka * ambientColor; 
 
+  //low piority
   if (attenuation  * max(0.0, dot(normalDirection, lightDirection)) >= 0.1)
     fragmentColor = Kd * diffuseColor; 
             
   /*if (dot(viewDirection, normalDirection) < max(0.0, dot(normalDirection, lightDirection)))
     fragmentColor = diffuseColor;
-  */          
+  */ 
+  //high piority         
   if (dot(normalDirection, lightDirection) > 0.0 
                // light source on the right side?
                && attenuation *  pow(max(0.0, dot(
