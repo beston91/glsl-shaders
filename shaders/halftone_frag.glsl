@@ -43,6 +43,7 @@ void main() {
             {
                radius = clamp(0.8 * max(0.0, dot(normalDirection, lightDirection)),0.3,0.8);
             }
+  //mix function create the dot by setting dist < radius to ambient color and dist > radius to diffuse color
   vec3 fragcolor = mix(ambientColor, diffuseColor, step(radius, dist));
 
   gl_FragColor = vec4(fragcolor, 1.0);
