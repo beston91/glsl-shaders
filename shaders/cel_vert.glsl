@@ -15,6 +15,7 @@ void main() {
   vec4 vertPos4 = modelview * vec4(position, 1.0);
   gl_Position = projection * vertPos4;
 
+  //computing the varying variables
   normalInterp = vec3(normalMat * vec4(normal, 1.0));
   vertPos = worldPosition; 
   viewVec = eyePos - worldPosition;

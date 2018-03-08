@@ -10,13 +10,14 @@ varying vec3 normalInterp; // Normal
 varying vec3 vertPos; // Vertex position
 varying vec3 viewVec; // Vector from the eye to the vertex
 
+// README: works well ambient = # 6b380c, diffuse = #e68627, specular = #ffffff
 void main()
 {
   // Your solution should go here.
   vec4 vertPos4 = modelview * vec4(position, 1.0);
   gl_Position = projection * vertPos4;
 
-
+  //computing varying variables
   normalInterp = vec3(normalMat * vec4(normal, 1.0));
   vertPos = worldPosition; 
   viewVec = eyePos - worldPosition;

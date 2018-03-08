@@ -24,7 +24,6 @@ uniform sampler2D uSampler;	// A GLSL sampler represents a single texture. A sam
 
 void main() {
   // Your solution should go here.
-  // The model is currently rendered in black
   
   gl_FragColor = texture2D(uSampler, texCoordInterp);
 }

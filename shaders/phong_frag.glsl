@@ -22,13 +22,13 @@ void main() {
   // Your solution should go here.
   // Only the ambient colour calculations have been provided as an example.
 
-  vec3 N = normalize (normalInterp);
-  vec3 L = normalize (lightPos - vertPos);
-  vec3 B = normalize (viewVec);
-  vec3 R = normalize(-L + 2.0 * dot(N,L) * N);
+  vec3 normalDirection = normalize (normalInterp);
+  vec3 lightDirection = normalize (lightPos - vertPos);
+  vec3 viewDirection = normalize (viewVec);
+  vec3 reflectDirection = normalize(-lightDirection + 2.0 * dot(normalDirection, lightDirection) * normalDirection);
 
-  float lambertian = Kd * max(0.0, dot(N,L));
-  float specular = Ks * pow(max(0.0, dot(R,B)), shininessVal);
-  //float Specular = 
+  float lambertian = Kd * max(0.0, dot(normalDirection, lightDirection));
+  float specular = Ks * pow(max(0.0, dot(reflectDirection, viewDirection)), shininessVal);
+ 
   gl_FragColor = vec4(ambientColor + lambertian * diffuseColor + specular * specularColor, 1.0);
 }

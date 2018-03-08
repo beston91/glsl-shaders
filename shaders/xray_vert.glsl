@@ -15,7 +15,6 @@ void main() {
   normalInterp = vec3(normalMat * vec4(normal, 1.0));
   vertPos = worldPosition; 
   
-
   vec4 vertPos4 = modelview * vec4(position, 1.0);
   gl_Position = projection * vertPos4;
 }

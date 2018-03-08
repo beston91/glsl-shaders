@@ -24,30 +24,26 @@ void main() {
   vec3 normalDirection = normalize(normalInterp);
   vec3 viewDirection = normalize(viewVec);
   vec3 lightDirection = normalize(lightPos - vertPos);
+  vec3 reflectDirection = normalize(-lightDirection + 2.0 * dot(normalDirection, lightDirection) * normalDirection);
 
   vec3 fragmentColor;
 
   float distance = length(lightDirection);
-  float attenuation = 1.0 / distance; // linear attenuation
 
-  fragmentColor = Ka * ambientColor; 
+  //used a mix of ambient color and diffuse color to reduce the border effect when the two color are vastly different from each other
+  fragmentColor = 0.7* Ka * ambientColor + 0.3 * Kd* diffuseColor; 
 
-  //low piority
-  if (attenuation  * max(0.0, dot(normalDirection, lightDirection)) >= 0.1)
-    fragmentColor = Kd * diffuseColor; 
+  //low piority which create the base color
+  if (max(0.0, dot(normalDirection, lightDirection)) / distance >= 0.01)
+    fragmentColor = 0.5 * Ka* ambientColor+ 0.5* Kd* diffuseColor; 
+
+  //medium piority
+  if (max(0.0, dot(normalDirection, lightDirection)) / distance >= 0.3)
+    fragmentColor = 0.1*Ka*ambientColor + 0.9* Kd * diffuseColor; 
             
-  /*if (dot(viewDirection, normalDirection) < max(0.0, dot(normalDirection, lightDirection)))
-    fragmentColor = diffuseColor;
-  */ 
-  //high piority         
-  if (dot(normalDirection, lightDirection) > 0.0 
-               // light source on the right side?
-               && attenuation *  pow(max(0.0, dot(
-               reflect(-lightDirection, normalDirection), 
-               viewDirection)), shininessVal) > 0.5) 
-               // more than half highlight intensity? 
-            {
-               fragmentColor = Ks * specularColor;
-            }
+  //high piority       
+  if (pow(max(0.0, dot(reflectDirection, viewDirection)), shininessVal) / distance > 0.5 && dot(normalDirection, lightDirection) > 0.0) 
+    fragmentColor = Ks * specularColor;
+
   gl_FragColor = vec4(fragmentColor, 1.0);
 }

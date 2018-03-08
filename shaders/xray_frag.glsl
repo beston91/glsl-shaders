@@ -21,15 +21,12 @@ uniform vec3 lightPos; // Light position in camera space
 void main() {
   // Your solution should go here.
   
-
-  //this calculate whether the normal is in the same direction of the vertPos vector, if they are, it will result in a number closes to 1, when 1 - that it will
-  //produce a low opacity, which looks hollow
+  //This calculate whether the normal is in the same direction of the vertPos vector, if they are, it will result in a number closes to 1, when 1 - that it will
+  //produce a low opacity, which looks hollow.
+  //At the edge, the normal vector would be orthogonal to the vertPos, which produces result close to 0. Hence 1 - opac will be close to 1 and hence appear solid
   float opac = dot(normalize(normalInterp), normalize(vertPos));
-
-    opac = abs(opac);
-
-    //opac = 1.0-pow(opac, 1.0);
-    opac = 1.0-opac;
+  opac = abs(opac);
+  opac = 1.0-opac;
 
   gl_FragColor =  vec4(opac * ambientColor,1.0);
 
